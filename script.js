@@ -1,19 +1,33 @@
 document.getElementById('clientForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    let age = document.getElementById('age').value;
-    let gender = document.getElementById('gender').value;
-    let waist = document.getElementById('waist').value;
-    let hip = document.getElementById('hip').value;
 
-    let plan = "Custom Plan:\n";
-    if (waist > 28) {
-        plan += "- Add cardio 3x/week for fat loss\n";
-        plan += "- Core tightening exercises\n";
+    const bust = parseFloat(document.getElementById('bust').value);
+    const waist = parseFloat(document.getElementById('waist').value);
+    const hip = parseFloat(document.getElementById('hip').value);
+    const weight = parseFloat(document.getElementById('weight').value);
+    const height = parseFloat(document.getElementById('height').value);
+
+    // Calculate BMI
+    const heightMeters = height / 100;
+    const bmi = (weight / (heightMeters ** 2)).toFixed(1);
+
+    let plan = `BMI: ${bmi}\n`;
+
+    // Analyze Figure 8 Shape
+    if (Math.abs(bust - hip) <= 2 && waist / ((bust + hip) / 2) <= 0.7) {
+        plan += "You already have an hourglass shape!\nMaintain with full-body workouts.\n";
+    } else {
+        plan += "Focus Areas:\n";
+        if (bust < hip - 2) {
+            plan += "- Bust toning: Push-ups, Chest Press\n";
+        }
+        if (waist / ((bust + hip) / 2) > 0.7) {
+            plan += "- Waist slimming: Planks, HIIT Cardio\n";
+        }
+        if (hip < bust - 2) {
+            plan += "- Hip building: Hip Thrusts, Squats\n";
+        }
     }
-    if (hip < 38) {
-        plan += "- Glute strengthening: Hip thrusts, Squats\n";
-    }
-    plan += "- General strength training 3x/week";
 
     document.getElementById('result').innerText = plan;
 });
