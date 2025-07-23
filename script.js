@@ -1,3 +1,12 @@
+// Dummy AI prediction function
+function predictFocusArea(bmi, waist, bust, hip) {
+    const waistToHip = waist / hip;
+    if (bmi >= 30) return "Cardio"; // Obese → focus on cardio
+    if (waistToHip > 0.75) return "Core"; // Wide waist → core
+    if (hip < bust) return "Glutes"; // Smaller hips → glutes
+    return "Full Body"; // Balanced
+}
+
 async function getExercises(target, level) {
     const response = await fetch('exercises.json');
     const exercises = await response.json();
@@ -19,23 +28,34 @@ document.getElementById('clientForm').addEventListener('submit', async function(
     const bmi = (weight / (heightMeters ** 2)).toFixed(1);
 
     let level = "Beginner"; // Default for now
+    const focusArea = predictFocusArea(bmi, waist, bust, hip);
 
-    let resultHTML = `<p><strong style="color:green">BMI: ${bmi}</strong></p>`;
-    resultHTML += `<p><strong>7-Day Custom Workout Plan:</strong></p>`;
+    let bmiColor = "green";
+    if (bmi < 18.5) bmiColor = "blue";
+    else if (bmi >= 25 && bmi <= 29.9) bmiColor = "orange";
+    else if (bmi >= 30) bmiColor = "red";
 
-    // Example targets
-    const targets = ["Glutes", "Core", "Cardio"];
+    let resultHTML = `
+        <div class="p-4 rounded-lg shadow bg-white">
+            <h2 class="text-xl font-bold text-green-700 mb-2">Your Results</h2>
+            <p><strong style="color:${bmiColor}">BMI: ${bmi}</strong></p>
+            <p class="mt-2 text-green-600">AI suggests focus area: <strong>${focusArea}</strong></p>
+            <h3 class="text-lg font-semibold mt-4">7-Day Custom Workout Plan</h3>
+    `;
 
     for (let day = 1; day <= 7; day++) {
-        const target = targets[day % targets.length]; // Rotate focus areas
+        const target = day % 2 === 0 ? focusArea : "Full Body";
         const dayExercises = await getExercises(target, level);
 
-        resultHTML += `<p><strong>Day ${day}: ${target}</strong></p><ul>`;
+        resultHTML += `<div class="mt-3 p-3 bg-green-50 rounded">
+            <h4 class="font-bold text-green-700">Day ${day}: ${target}</h4>
+            <ul class="list-disc list-inside">`;
         dayExercises.forEach(ex => {
             resultHTML += `<li>${ex.name} (${ex.reps})</li>`;
         });
-        resultHTML += "</ul>";
+        resultHTML += "</ul></div>";
     }
 
+    resultHTML += "</div>";
     document.getElementById('result').innerHTML = resultHTML;
 });
