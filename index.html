@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gym Trainer App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TailwindCSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
+    <h1 class="text-2xl font-bold text-center text-green-700 mb-6">Body Goals Planner</h1>
+
+    <form id="clientForm" class="space-y-6">
+      <div class="grid grid-cols-2 gap-6">
+        <!-- Current Measurements -->
+        <div>
+          <h2 class="text-lg font-semibold text-green-700 mb-2">Current</h2>
+          <label class="block text-gray-700 mb-1">Bust (inches):</label>
+          <input type="number" id="bust" class="w-full p-2 border rounded mb-3" required>
+          <label class="block text-gray-700 mb-1">Waist (inches):</label>
+          <input type="number" id="waist" class="w-full p-2 border rounded mb-3" required>
+          <label class="block text-gray-700 mb-1">Hips (inches):</label>
+          <input type="number" id="hip" class="w-full p-2 border rounded mb-3" required>
+        </div>
+
+        <!-- Target Measurements -->
+        <div>
+          <h2 class="text-lg font-semibold text-green-700 mb-2">Target</h2>
+          <label class="block text-gray-700 mb-1">Target Bust (inches):</label>
+          <input type="number" id="targetBust" class="w-full p-2 border rounded mb-3" required>
+          <label class="block text-gray-700 mb-1">Target Waist (inches):</label>
+          <input type="number" id="targetWaist" class="w-full p-2 border rounded mb-3" required>
+          <label class="block text-gray-700 mb-1">Target Hips (inches):</label>
+          <input type="number" id="targetHip" class="w-full p-2 border rounded mb-3" required>
+        </div>
+      </div>
+
+      <!-- Weight & Height -->
+      <div>
+        <label class="block text-gray-700 mb-1">Weight (kg):</label>
+        <input type="number" id="weight" class="w-full p-2 border rounded mb-3" required>
+        <label class="block text-gray-700 mb-1">Height (cm):</label>
+        <input type="number" id="height" class="w-full p-2 border rounded" required>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
+        Generate Plan
+      </button>
+    </form>
+
+    <!-- Results Output -->
+    <div id="result" class="mt-6 bg-gray-50 p-4 rounded border border-green-200 shadow-sm"></div>
+  </div>
+
+  <!-- Script embedded at end -->
+  <script>
+    document.getElementById('clientForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const bust = parseFloat(document.getElementById('bust').value);
+      const waist = parseFloat(document.getElementById('waist').value);
+      const hip = parseFloat(document.getElementById('hip').value);
+      const targetBust = parseFloat(document.getElementById('targetBust').value);
+      const targetWaist = parseFloat(document.getElementById('targetWaist').value);
+      const targetHip = parseFloat(document.getElementById('targetHip').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const bmi = (weight / ((height / 100) ** 2)).toFixed(1);
+
+      const bustGap = targetBust - bust;
+      const waistGap = targetWaist - waist;
+      const hipGap = targetHip - hip;
+
+      let result = `<p class="text-green-700 font-semibold text-lg">BMI: ${bmi}</p>`;
+      result += `<h3 class="font-bold mt-4 text-gray-800">Recommended Focus:</h3><ul class="list-disc pl-5 text-gray-700">`;
+
+      if (waistGap < 0) {
+        result += `<li>🔥 Waist reduction: HIIT, planks, mountain climbers</li>`;
+      } else if (waistGap === 0) {
+        result += `<li>✅ Waist maintenance: light core + cardio</li>`;
+      }
+
+      if (hipGap > 0) {
+        result += `<li>🍑 Hip growth: hip thrusts, sumo squats, glute bridges</li>`;
+      } else if (hipGap === 0) {
+        result += `<li>✅ Hip maintenance: glute activation 2x/week</li>`;
+      }
+
+      if (bustGap !== 0) {
+        result += `<li>💪 Bust tone: push-ups, chest press, dumbbell flys</li>`;
+      } else {
+        result += `<li>✅ Chest maintenance: posture, light upper body</li>`;
+      }
+
+      result += `</ul><p class="text-sm text-gray-500 mt-3">Note: Bust size can't grow from exercise, but appearance can improve via toning and posture.</p>`;
+
+      document.getElementById('result').innerHTML = result;
+    });
+  </script>
+</body>
+</html>
