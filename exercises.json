@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Plank",
+    "target": "Waist",
+    "goal": "Reduce",
+    "level": "All",
+    "reps": "3 x 45 sec"
+  },
+  {
+    "name": "Mountain Climbers",
+    "target": "Waist",
+    "goal": "Reduce",
+    "level": "All",
+    "reps": "3 x 30"
+  },
+  {
+    "name": "Russian Twists",
+    "target": "Waist",
+    "goal": "Reduce",
+    "level": "Beginner",
+    "reps": "3 x 20"
+  },
+  {
+    "name": "Hip Thrusts",
+    "target": "Hips",
+    "goal": "Grow",
+    "level": "All",
+    "reps": "4 x 12"
+  },
+  {
+    "name": "Sumo Squats",
+    "target": "Hips",
+    "goal": "Grow",
+    "level": "Intermediate",
+    "reps": "3 x 15"
+  },
+  {
+    "name": "Glute Bridges",
+    "target": "Hips",
+    "goal": "Grow",
+    "level": "Beginner",
+    "reps": "3 x 12"
+  },
+  {
+    "name": "Push-ups",
+    "target": "Chest",
+    "goal": "Tone",
+    "level": "All",
+    "reps": "3 x 10"
+  },
+  {
+    "name": "Chest Press",
+    "target": "Chest",
+    "goal": "Tone",
+    "level": "All",
+    "reps": "3 x 12"
+  },
+  {
+    "name": "Dumbbell Flys",
+    "target": "Chest",
+    "goal": "Tone",
+    "level": "All",
+    "reps": "3 x 12"
+  },
+  {
+    "name": "Jump Rope",
+    "target": "Cardio",
+    "goal": "Reduce",
+    "level": "All",
+    "reps": "10 min"
+  }
+]
