@@ -1,9 +1,0 @@
-[
-  {"name": "Hip Thrusts", "target": "Glutes", "level": "Beginner", "equipment": "Bodyweight", "reps": "3x10"},
-  {"name": "Glute Bridges", "target": "Glutes", "level": "Beginner", "equipment": "Bodyweight", "reps": "3x12"},
-  {"name": "Squats", "target": "Glutes", "level": "All", "equipment": "Bodyweight", "reps": "3x15"},
-  {"name": "Plank", "target": "Core", "level": "All", "equipment": "Bodyweight", "reps": "3x30sec"},
-  {"name": "Russian Twists", "target": "Core", "level": "Intermediate", "equipment": "Bodyweight", "reps": "3x20"},
-  {"name": "Jump Rope", "target": "Cardio", "level": "Intermediate", "equipment": "None", "reps": "5 min"},
-  {"name": "Brisk Walk", "target": "Cardio", "level": "Beginner", "equipment": "None", "reps": "20 min"}
-]
