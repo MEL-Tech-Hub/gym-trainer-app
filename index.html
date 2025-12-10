@@ -1,124 +1,1331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Gym Trainer App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Tailwind CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Build To Last Fitness ; Body Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --primary: #0b63ce;           /* deep blue */
+      --primary-light: #3fa9ff;     /* bright blue */
+      --primary-dark: #062b66;
+      --accent: #000000;            /* black */
+      --bg: #030b1a;
+      --card-bg: #ffffff;
+      --text-main: #0b1020;
+      --text-muted: #6a7190;
+      --danger: #d32f2f;
+      --success: #2e7d32;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 0% 0%, #123b7a 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, #0b63ce 0, transparent 50%),
+        radial-gradient(circle at 100% 100%, #051027 0, #020611 60%);
+    }
+
+    .page {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+      color: #e8edff;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+
+    header .brand {
+      flex: 1 1 280px;
+    }
+
+    .logo-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(3, 12, 40, 0.85);
+      border-radius: 999px;
+      padding: 6px 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+      margin-bottom: 10px;
+      border: 1px solid rgba(111, 177, 255, 0.5);
+      backdrop-filter: blur(6px);
+    }
+
+    .logo-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: conic-gradient(from 140deg, #3fa9ff, #0b63ce, #76ffea, #3fa9ff);
+      box-shadow: 0 0 12px rgba(63, 169, 255, 0.8);
+    }
+
+    .logo-text {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #f5f7ff;
+    }
+
+    h1 {
+      font-size: 30px;
+      line-height: 1.2;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    h1 span {
+      color: #76ffea;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #c3c9ff;
+      max-width: 480px;
+    }
+
+    .hero-image {
+      flex: 1 1 260px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-frame {
+      position: relative;
+      max-width: 280px;
+      width: 100%;
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      border: 2px solid rgba(160, 210, 255, 0.7);
+      background: radial-gradient(circle at 20% 0%, #1b2954, #020817);
+    }
+
+    .hero-frame::after {
+      content: "Build To Last Fitness";
+      position: absolute;
+      bottom: 10px;
+      right: 14px;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(3, 12, 40, 0.85);
+      color: #e0ebff;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      border: 1px solid rgba(118, 255, 234, 0.6);
+    }
+
+    .hero-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 60%; /* crop higher so face is less visible */
+      filter: saturate(1.2) contrast(1.05);
+      transform: scale(1.03);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .page {
+        padding-top: 18px;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(74, 120, 255, 0.08), rgba(3, 11, 35, 0.95));
+      border-radius: 18px;
+      padding: 18px 18px 20px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(153, 195, 255, 0.4);
+      color: #e8edff;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0% 0%, rgba(118, 255, 234, 0.08), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .card-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #d9e5ff;
+      background: rgba(5, 25, 77, 0.9);
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid rgba(118, 255, 234, 0.6);
+    }
+
+    .card-body {
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #a9b4ff;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    input,
+    select {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(146, 175, 255, 0.7);
+      font-size: 14px;
+      outline: none;
+      background: rgba(4, 15, 50, 0.95);
+      color: #f0f3ff;
+      transition: border 0.15s, box-shadow 0.15s, background 0.15s, transform 0.08s;
+    }
+
+    input::placeholder {
+      color: #6473b3;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #76ffea;
+      box-shadow: 0 0 0 2px rgba(118, 255, 234, 0.5);
+      background: rgba(2, 11, 40, 0.98);
+      transform: translateY(-0.5px);
+    }
+
+    .input-addon {
+      display: flex;
+      align-items: center;
+      background: rgba(4, 15, 50, 0.9);
+      border-radius: 10px;
+      border: 1px solid rgba(146, 175, 255, 0.7);
+      overflow: hidden;
+    }
+
+    .input-addon span {
+      font-size: 12px;
+      color: #a9b4ff;
+      padding: 0 10px;
+      border-left: 1px solid rgba(146, 175, 255, 0.7);
+      background: rgba(12, 39, 116, 0.9);
+      white-space: nowrap;
+    }
+
+    .input-addon input {
+      border: none;
+      border-radius: 0;
+      flex: 1;
+      padding: 8px 10px;
+      background: transparent;
+      box-shadow: none;
+      color: #f0f3ff;
+    }
+
+    .helper {
+      font-size: 11px;
+      color: #9ea7e8;
+      margin-top: 2px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3fa9ff, #0b63ce, #76ffea);
+      color: #020617;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.9);
+    }
+
+    .btn-primary span {
+      font-size: 15px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.95);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #e0e7ff;
+      border: 1px solid rgba(144, 172, 255, 0.9);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(12, 30, 91, 0.85);
+      transform: translateY(-1px);
+    }
+
+    .results-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(118, 255, 234, 0.18);
+      color: #76ffea;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin: 4px 0;
+      gap: 8px;
+    }
+
+    .metric-row span:first-child {
+      color: #9ea7e8;
+    }
+
+    .metric-row span:last-child {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+
+    .badge.success {
+      background: rgba(129, 199, 132, 0.16);
+      color: #b9f6ca;
+      border: 1px solid rgba(129, 199, 132, 0.7);
+    }
+
+    .badge.warn {
+      background: rgba(255, 213, 79, 0.1);
+      color: #ffe082;
+      border: 1px solid rgba(255, 213, 79, 0.7);
+    }
+
+    .badge.danger {
+      background: rgba(239, 83, 80, 0.1);
+      color: #ff8a80;
+      border: 1px solid rgba(239, 83, 80, 0.7);
+    }
+
+    .shape-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      color: #ffffff;
+    }
+
+    .shape-sub {
+      font-size: 13px;
+      color: #c3c9ff;
+      margin-bottom: 6px;
+    }
+
+    .diff-list {
+      list-style: none;
+      font-size: 13px;
+      margin-top: 4px;
+      color: #e0e7ff;
+    }
+
+    .diff-list li {
+      margin-bottom: 4px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(144, 172, 255, 0.9);
+      font-size: 11px;
+      background: rgba(9, 19, 61, 0.9);
+      color: #b8c3ff;
+    }
+
+    .tab-pill.active {
+      background: linear-gradient(135deg, #3fa9ff, #0b63ce);
+      color: #020617;
+      border-color: transparent;
+    }
+
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 800px) {
+      .exercise-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 580px) {
+      .exercise-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .exercise-card {
+      border-radius: 12px;
+      border: 1px solid rgba(144, 172, 255, 0.7);
+      padding: 8px 9px;
+      background: radial-gradient(circle at top left, rgba(118, 255, 234, 0.16), rgba(9, 17, 58, 0.96));
+      color: #eef2ff;
+    }
+
+    .exercise-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+
+    .exercise-meta {
+      font-size: 11px;
+      color: #b3bcff;
+      margin-bottom: 4px;
+    }
+
+    .exercise-desc {
+      font-size: 11px;
+      color: #e2e7ff;
+    }
+
+    .exercise-tagline {
+      font-size: 11px;
+      color: #9ea7e8;
+      margin-top: 4px;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 11px;
+      color: #7f88c9;
+      text-align: center;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans">
-
-  <div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
-    <h1 class="text-2xl font-bold text-center text-green-700 mb-6">Body Goals Planner</h1>
-
-    <form id="clientForm" class="space-y-6">
-      <div class="grid grid-cols-2 gap-6">
-        <!-- Current Measurements -->
-        <div>
-          <h2 class="text-lg font-semibold text-green-700 mb-2">Current</h2>
-          <label class="block text-gray-700 mb-1">Bust (inches):</label>
-          <input type="number" id="bust" class="w-full p-2 border rounded mb-3" required>
-
-          <label class="block text-gray-700 mb-1">Waist (inches):</label>
-          <input type="number" id="waist" class="w-full p-2 border rounded mb-3" required>
-
-          <label class="block text-gray-700 mb-1">Hips (inches):</label>
-          <input type="number" id="hip" class="w-full p-2 border rounded mb-3" required>
+<body>
+  <div class="page">
+    <!-- TOP HERO -->
+    <header>
+      <div class="brand">
+        <div class="logo-pill">
+          <div class="logo-dot"></div>
+          <div class="logo-text">Build To Last Fitness ; Body Analysis</div>
         </div>
-
-        <!-- Target Measurements -->
-        <div>
-          <h2 class="text-lg font-semibold text-green-700 mb-2">Target</h2>
-          <label class="block text-gray-700 mb-1">Target Bust (inches):</label>
-          <input type="number" id="targetBust" class="w-full p-2 border rounded mb-3" required>
-
-          <label class="block text-gray-700 mb-1">Target Waist (inches):</label>
-          <input type="number" id="targetWaist" class="w-full p-2 border rounded mb-3" required>
-
-          <label class="block text-gray-700 mb-1">Target Hips (inches):</label>
-          <input type="number" id="targetHip" class="w-full p-2 border rounded mb-3" required>
+        <h1>
+          Build To Last Fitness<br />
+          <span>Body Analysis & Hourglass Planner</span>
+        </h1>
+        <p class="subtitle">
+          Enter your bust–waist–hip measurements (in cm or inches), height and weight. BTL analyses your waist–hip
+          and waist–bust ratios, calculates BMI and gives you a weekly gym plan focused on shoulders, waist and glutes
+          to move you towards a figure-8 hourglass silhouette.
+        </p>
+      </div>
+      <div class="hero-image">
+        <div class="hero-frame">
+          <!-- You can replace this URL with your own image of a lady working out, face hidden/turned away -->
+          <img
+            src="https://images.pexels.com/photos/1552103/pexels-photo-1552103.jpeg"
+            alt="Woman training in the gym, face turned away"
+          />
         </div>
       </div>
+    </header>
 
-      <!-- Weight & Height -->
-      <div>
-        <label class="block text-gray-700 mb-1">Weight (kg):</label>
-        <input type="number" id="weight" class="w-full p-2 border rounded mb-3" required>
+    <main class="layout">
+      <!-- LEFT: INPUT FORM -->
+      <section class="card" aria-label="Measurement input">
+        <div class="card-header">
+          <div class="card-title">Your BTL F Stats</div>
+          <span class="card-tag">Step 1 · Input</span>
+        </div>
+        <div class="card-body">
+          <form id="measurement-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name (optional)</label>
+                <input type="text" id="name" placeholder="Mel, BTL F Queen" />
+              </div>
+              <div class="form-group">
+                <label for="units">Units</label>
+                <select id="units">
+                  <option value="cm" selected>Centimetres (cm / kg)</option>
+                  <option value="in">Inches (in / lbs)</option>
+                </select>
+                <div class="helper">All measurements below use this unit.</div>
+              </div>
+            </div>
 
-        <label class="block text-gray-700 mb-1">Height (cm):</label>
-        <input type="number" id="height" class="w-full p-2 border rounded" required>
-      </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="height">Height</label>
+                <div class="input-addon">
+                  <input type="number" id="height" placeholder="165" />
+                  <span id="height-unit-label">cm</span>
+                </div>
+                <div class="helper">Needed for BMI. In cm or inches, matching units above.</div>
+              </div>
+              <div class="form-group">
+                <label for="weight">Weight</label>
+                <div class="input-addon">
+                  <input type="number" id="weight" placeholder="70" />
+                  <span id="weight-unit-label">kg</span>
+                </div>
+                <div class="helper">In kg or lbs, matching units above.</div>
+              </div>
+            </div>
 
-      <!-- Submit -->
-      <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
-        Generate Plan
-      </button>
-    </form>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="experience">Gym experience</label>
+                <select id="experience">
+                  <option value="beginner">Beginner (0–6 months)</option>
+                  <option value="intermediate" selected>Intermediate (6–24 months)</option>
+                  <option value="advanced">Advanced (2+ years)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="goal">Main focus</label>
+                <select id="goal">
+                  <option value="hourglass">Hourglass / figure-8 balance</option>
+                  <option value="smaller_waist">Smaller waist & core</option>
+                  <option value="bigger_glutes">Bigger glutes & hips</option>
+                  <option value="upper_body">Shoulders & upper back</option>
+                  <option value="fat_loss">General fat loss & tone</option>
+                </select>
+                <div class="helper">The app still gives you a full-body plan.</div>
+              </div>
+            </div>
 
-    <!-- Output -->
-    <div id="result" class="mt-6 bg-gray-50 p-4 rounded border border-green-200 shadow-sm"></div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bust">Bust / Chest</label>
+                <div class="input-addon">
+                  <input type="number" id="bust" placeholder="95" required />
+                  <span id="bust-unit-label">cm</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="waist">Waist</label>
+                <div class="input-addon">
+                  <input type="number" id="waist" placeholder="75" required />
+                  <span id="waist-unit-label">cm</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="hips">Hips</label>
+                <div class="input-addon">
+                  <input type="number" id="hips" placeholder="105" required />
+                  <span id="hips-unit-label">cm</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="submit" class="btn-primary">
+                Generate BTL F Plan
+                <span>➜</span>
+              </button>
+              <button type="button" id="reset-btn" class="btn-secondary">
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- RIGHT: RESULTS & PLAN -->
+      <section class="results-section">
+        <article class="card" aria-label="Body analysis">
+          <div class="card-header">
+            <div class="card-title">Shape & Health Snapshot</div>
+            <span class="card-tag">Step 2 · Analyse</span>
+          </div>
+          <div class="card-body" id="analysis">
+            <p class="helper">
+              Fill in your measurements and click <strong>Generate BTL F Plan</strong> to see your shape type,
+              hourglass ratios, BMI and key focus areas.
+            </p>
+          </div>
+        </article>
+
+        <article class="card" aria-label="Workout recommendation">
+          <div class="card-header">
+            <div class="card-title">BTL F Workout Blocks</div>
+            <span class="card-tag">Step 3 · Train</span>
+          </div>
+          <div class="card-body" id="plan">
+            <p class="helper">
+              Your glutes, waist, shoulders and full-body blocks will appear here, powered by the built-in exercise
+              database. Suggested schedule: start with <strong>2–3 strength days/week</strong>, then build to
+              <strong>3–4 days</strong> as you adapt.
+            </p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      Build To Last Fitness ; Body Analysis is informational only and doesn’t replace medical or coaching advice.
+      Train smart, lift heavy, rest well.
+    </footer>
   </div>
 
   <script>
-    document.getElementById('clientForm').addEventListener('submit', function (e) {
-      e.preventDefault();
+    // --- EXERCISE "DATABASE" ---
+    const EXERCISE_DB = {
+      glutes_hips: [
+        {
+          name: "Barbell Hip Thrust",
+          muscle: "Glutes, hamstrings",
+          equipment: "Barbell / bench",
+          level: "Intermediate",
+          desc: "Drive hips up, squeeze glutes hard at the top, control down."
+        },
+        {
+          name: "Romanian Deadlift",
+          muscle: "Glutes, hamstrings",
+          equipment: "Barbell or dumbbells",
+          level: "Intermediate",
+          desc: "Hinge from the hips with a flat back, feel the stretch in hamstrings."
+        },
+        {
+          name: "Bulgarian Split Squat",
+          muscle: "Quads, glutes",
+          equipment: "Bench + dumbbells (optional)",
+          level: "Intermediate",
+          desc: "Rear foot elevated, front leg does the work. Great for shaping the lower body."
+        },
+        {
+          name: "Cable Kickback",
+          muscle: "Glute max",
+          equipment: "Cable machine",
+          level: "All levels",
+          desc: "Slow kickback with a pause at the top, no swinging."
+        },
+        {
+          name: "Lateral Band Walks",
+          muscle: "Glute medius",
+          equipment: "Mini band",
+          level: "All levels",
+          desc: "Keep tension on the band and hips level, small controlled steps."
+        }
+      ],
+      waist_core: [
+        {
+          name: "Cable Wood Chop",
+          muscle: "Obliques, core",
+          equipment: "Cable machine",
+          level: "Intermediate",
+          desc: "Rotate through the torso, not just the arms, keeping hips stable."
+        },
+        {
+          name: "Dead Bug",
+          muscle: "Deep core",
+          equipment: "Bodyweight",
+          level: "Beginner",
+          desc: "Opposite arm and leg extend while lower back stays pressed into the floor."
+        },
+        {
+          name: "Pallof Press",
+          muscle: "Anti-rotation core",
+          equipment: "Cable or band",
+          level: "All levels",
+          desc: "Press hands away from chest and resist rotation."
+        },
+        {
+          name: "Plank Hold",
+          muscle: "Core, shoulders",
+          equipment: "Bodyweight",
+          level: "All levels",
+          desc: "Neutral spine, squeeze glutes, don’t let hips sag."
+        },
+        {
+          name: "Walking Treadmill / Incline Walk",
+          muscle: "Low-intensity cardio",
+          equipment: "Treadmill",
+          level: "All levels",
+          desc: "Great for overall fat loss when paired with nutrition."
+        }
+      ],
+      shoulders_back: [
+        {
+          name: "Seated Dumbbell Shoulder Press",
+          muscle: "Delts, triceps",
+          equipment: "Dumbbells",
+          level: "All levels",
+          desc: "Press up with control, keep ribs down and core braced."
+        },
+        {
+          name: "Lateral Raises",
+          muscle: "Side delts",
+          equipment: "Dumbbells",
+          level: "All levels",
+          desc: "Soft elbows, raise to shoulder height, no swinging."
+        },
+        {
+          name: "Face Pulls",
+          muscle: "Rear delts, upper back",
+          equipment: "Cable + rope",
+          level: "All levels",
+          desc: "Pull towards the nose or forehead, elbows high."
+        },
+        {
+          name: "Lat Pulldown",
+          muscle: "Lats, upper back",
+          equipment: "Pulldown machine",
+          level: "All levels",
+          desc: "Pull bar to upper chest, control on the way up."
+        },
+        {
+          name: "Push-Ups (incline if needed)",
+          muscle: "Chest, shoulders, core",
+          equipment: "Bodyweight",
+          level: "Scalable",
+          desc: "Keep body in a straight line, full range of motion."
+        }
+      ],
+      full_body_fat_loss: [
+        {
+          name: "Goblet Squat",
+          muscle: "Quads, glutes, core",
+          equipment: "Dumbbell or kettlebell",
+          level: "Beginner–intermediate",
+          desc: "Hold weight at chest, sit between hips, drive through heels."
+        },
+        {
+          name: "Rower / Ski Erg Intervals",
+          muscle: "Full body + cardio",
+          equipment: "Machine",
+          level: "All levels",
+          desc: "Short bursts of effort followed by recovery for conditioning."
+        },
+        {
+          name: "Farmer’s Carry",
+          muscle: "Grip, traps, core",
+          equipment: "Dumbbells or kettlebells",
+          level: "All levels",
+          desc: "Walk tall with heavy weights at your sides."
+        },
+        {
+          name: "Step-Ups",
+          muscle: "Glutes, quads",
+          equipment: "Box or bench",
+          level: "All levels",
+          desc: "Drive through the heel of the working leg, control the descent."
+        },
+        {
+          name: "Elliptical / Bike 20–30 min",
+          muscle: "Low-impact cardio",
+          equipment: "Machine",
+          level: "All levels",
+          desc: "Steady effort you can maintain while talking."
+        }
+      ],
+      warmup_mobility: [
+        {
+          name: "5–7 min Light Cardio",
+          muscle: "Full body warm-up",
+          equipment: "Treadmill, bike or skipping",
+          level: "All levels",
+          desc: "Gradually raise heart rate and body temperature."
+        },
+        {
+          name: "Hip Circles & Leg Swings",
+          muscle: "Hips",
+          equipment: "Bodyweight",
+          level: "All levels",
+          desc: "Controlled movement to open hips before lower body work."
+        },
+        {
+          name: "Arm Circles & Band Pull-Aparts",
+          muscle: "Shoulders, upper back",
+          equipment: "Mini band",
+          level: "All levels",
+          desc: "Prep shoulders before heavy pressing or pulling."
+        }
+      ]
+    };
 
-      const bust = parseFloat(document.getElementById('bust').value);
-      const waist = parseFloat(document.getElementById('waist').value);
-      const hip = parseFloat(document.getElementById('hip').value);
-      const targetBust = parseFloat(document.getElementById('targetBust').value);
-      const targetWaist = parseFloat(document.getElementById('targetWaist').value);
-      const targetHip = parseFloat(document.getElementById('targetHip').value);
-      const weight = parseFloat(document.getElementById('weight').value);
-      const height = parseFloat(document.getElementById('height').value);
-      const bmi = (weight / ((height / 100) ** 2)).toFixed(1);
+    function roundTo1(num) {
+      return Math.round(num * 10) / 10;
+    }
 
-      const bustGap = targetBust - bust;
-      const waistGap = targetWaist - waist;
-      const hipGap = targetHip - hip;
+    function roundTo2(num) {
+      return Math.round(num * 100) / 100;
+    }
 
-      let result = `<p class="text-green-700 font-bold text-lg">BMI: ${bmi}</p>`;
+    function classifyShape(bust, waist, hips) {
+      const bustWaist = waist / bust;
+      const hipWaist = waist / hips;
+      const bustHipDiff = Math.abs(bust - hips);
 
-      // 🗓️ 7-Day Workout Routine
-      result += `
-        <h3 class="mt-4 font-bold text-md">🗓️ 7-Day Workout Routine:</h3>
-        <ul class="list-disc list-inside mb-4">
-          <li><strong>Day 1:</strong> Glute Activation (Hip Thrusts 3x12)</li>
-          <li><strong>Day 2:</strong> Core Training (Planks 3x30sec, Mountain Climbers)</li>
-          <li><strong>Day 3:</strong> Chest & Posture (Push-ups 3x10)</li>
-          <li><strong>Day 4:</strong> Rest or Light Cardio (Brisk Walk 20–30 min)</li>
-          <li><strong>Day 5:</strong> Lower Body Sculpt (Sumo Squats, Glute Bridges)</li>
-          <li><strong>Day 6:</strong> HIIT (20 min fat-burning circuit)</li>
-          <li><strong>Day 7:</strong> Mobility & Posture Stretch</li>
-        </ul>
+      if (bustWaist <= 0.75 && hipWaist <= 0.75 && bustHipDiff <= 0.05 * ((bust + hips) / 2)) {
+        // within ~5% for bust vs hips and low waist ratios
+        return {
+          type: "Hourglass",
+          badge: "success",
+          summary: "You’re already very close to a classic hourglass shape.",
+          focus: [
+            "Keep glutes & shoulders strong to maintain curves.",
+            "Use core training to keep the waist firm, not just smaller.",
+            "Cycle phases of building muscle and gentle cuts."
+          ]
+        };
+      }
+
+      if (hips - bust >= 6 && hipWaist <= 0.78) {
+        return {
+          type: "Pear",
+          badge: "warn",
+          summary: "Hips are more dominant than bust — a pear / bottom-heavy silhouette.",
+          focus: [
+            "Grow upper back and shoulders to balance your top line.",
+            "Use smart glute training, not only heavy squats, to shape instead of just adding size.",
+            "Use cardio + core work for gentle fat loss around waist and thighs."
+          ]
+        };
+      }
+
+      if (bust - hips >= 6 && bustWaist <= 0.78) {
+        return {
+          type: "Inverted Triangle",
+          badge: "warn",
+          summary: "Upper body is more dominant than lower body.",
+          focus: [
+            "Prioritise glutes and hamstrings to build lower-body curves.",
+            "Keep shoulder work but in lower volume or frequency.",
+            "Use core and cardio to keep the waist trim as you grow glutes."
+          ]
+        };
+      }
+
+      if (bustWaist >= 0.78 && hipWaist >= 0.78 && bustHipDiff <= 0.05 * ((bust + hips) / 2)) {
+        return {
+          type: "Rectangle",
+          badge: "warn",
+          summary: "Measurements are fairly straight from bust to hips.",
+          focus: [
+            "Build glutes and upper back/shoulders for more curves.",
+            "Use small calorie deficit + steps/cardio for overall fat loss.",
+            "Focus on core stability to create more definition at the waist."
+          ]
+        };
+      }
+
+      return {
+        type: "Hybrid",
+        badge: "warn",
+        summary: "You have a mixed shape with unique proportions.",
+        focus: [
+          "Use glute, shoulder and core work together to move towards an hourglass outline.",
+          "Adjust volume where you want more or less muscle (e.g., more glutes, less quads).",
+          "Keep lifting heavy for performance, not only aesthetics."
+        ]
+      };
+    }
+
+    function buildAnalysisHTML(name, bust, waist, hips, bmi, bmiCategory) {
+      const idealWaist = 0.7 * ((bust + hips) / 2); // simple hourglass target
+      const waistDiff = waist - idealWaist;
+
+      const bustWaistRatio = bust / waist;
+      const hipWaistRatio = hips / waist;
+      const waistHipRatio = waist / hips;
+      const waistBustRatio = waist / bust;
+
+      const waistVsHipsPercent = (1 - waist / hips) * 100;
+      const waistVsBustPercent = (1 - waist / bust) * 100;
+
+      const shape = classifyShape(bust, waist, hips);
+
+      const badgeClass =
+        shape.badge === "success"
+          ? "badge success"
+          : shape.badge === "danger"
+          ? "badge danger"
+          : "badge warn";
+
+      const displayName = name && name.trim() ? name.trim() : "You";
+
+      const waistStatus =
+        Math.abs(waistDiff) < 2
+          ? {
+              text: "Your waist is very close to an hourglass target.",
+              badge: '<span class="badge success">✔ Almost hourglass waist</span>'
+            }
+          : waistDiff > 0
+          ? {
+              text: `Your waist is about ${roundTo1(
+                waistDiff
+              )} cm above the simple hourglass target.`,
+              badge: '<span class="badge warn">Focus: waist & overall fat loss</span>'
+            }
+          : {
+              text: `Your waist is about ${roundTo1(
+                Math.abs(waistDiff)
+              )} cm smaller than the simple hourglass target — curves can come from glutes & shoulders.`,
+              badge: '<span class="badge success">Great base – build more curves</span>'
+            };
+
+      const bmiSection =
+        bmi && bmiCategory
+          ? `
+        <div style="margin-top:10px; margin-bottom:4px; font-size:13px;">
+          <strong>BMI snapshot</strong>
+        </div>
+        <div class="metric-row">
+          <span>BMI (kg/m²)</span>
+          <span>${roundTo1(bmi)} · ${bmiCategory}</span>
+        </div>
+        <p class="helper" style="margin-top:2px;">
+          BMI uses weight and height only. Very muscular BTL lifters may score “overweight” on BMI even when body fat is healthy.
+        </p>
+      `
+          : `
+        <div style="margin-top:10px; margin-bottom:4px; font-size:13px;">
+          <strong>BMI snapshot</strong>
+        </div>
+        <p class="helper">
+          Add height and weight to see your BMI and category.
+        </p>
       `;
 
-      // 🔍 Recommendations
-      result += `<h3 class="font-bold mt-4">Recommended Focus:</h3><ul>`;
-      if (waistGap < 0) {
-        result += `<li>🔥 Waist reduction: HIIT, planks, mountain climbers</li>`;
-      } else if (waistGap === 0) {
-        result += `<li>✅ Waist maintenance: light core + cardio</li>`;
+      return `
+        <span class="pill">BTL F Shape Overview</span>
+        <div class="shape-title">
+          ${displayName}, your current silhouette is:
+          <span>${shape.type}</span>
+        </div>
+        <div class="shape-sub">
+          ${shape.summary}
+          <span class="${badgeClass}">${shape.type} focus</span>
+        </div>
+
+        <div style="margin-top:8px; margin-bottom:6px; font-size:13px;">
+          <strong>Your raw measurements (converted to cm)</strong>
+        </div>
+        <div class="metric-row">
+          <span>Bust / Chest</span>
+          <span>${roundTo1(bust)} cm</span>
+        </div>
+        <div class="metric-row">
+          <span>Waist</span>
+          <span>${roundTo1(waist)} cm</span>
+        </div>
+        <div class="metric-row">
+          <span>Hips</span>
+          <span>${roundTo1(hips)} cm</span>
+        </div>
+
+        <div style="margin-top:8px; margin-bottom:4px; font-size:13px;">
+          <strong>Hourglass comparison</strong>
+        </div>
+        <div class="metric-row">
+          <span>Target waist (simple figure-8 model)</span>
+          <span>${roundTo1(idealWaist)} cm</span>
+        </div>
+        <div class="metric-row">
+          <span>Bust ÷ Waist ratio</span>
+          <span>${roundTo2(bustWaistRatio)}</span>
+        </div>
+        <div class="metric-row">
+          <span>Hips ÷ Waist ratio</span>
+          <span>${roundTo2(hipWaistRatio)}</span>
+        </div>
+
+        <p style="margin-top:6px; font-size:13px;">
+          ${waistStatus.text} ${waistStatus.badge}
+        </p>
+
+        <div style="margin-top:10px; margin-bottom:4px; font-size:13px;">
+          <strong>Hourglass ratios BTL is using</strong>
+        </div>
+        <div class="metric-row">
+          <span>Waist ÷ Hips (WHR)</span>
+          <span>${roundTo2(waistHipRatio)}</span>
+        </div>
+        <div class="metric-row">
+          <span>Waist ÷ Bust</span>
+          <span>${roundTo2(waistBustRatio)}</span>
+        </div>
+        <div class="metric-row">
+          <span>Waist vs Hips</span>
+          <span>${roundTo1(waistVsHipsPercent)}% smaller waist than hips</span>
+        </div>
+        <div class="metric-row">
+          <span>Waist vs Bust</span>
+          <span>${roundTo1(waistVsBustPercent)}% smaller waist than bust</span>
+        </div>
+        <p class="helper" style="margin-top:2px;">
+          BTL aims for classic hourglass ranges where waist is ~25% smaller than bust/hips and waist–hip and waist–bust ratios land around 0.70–0.75.
+        </p>
+
+        ${bmiSection}
+
+        <div style="margin-top:8px; font-size:13px;">
+          <strong>Key focus directions</strong>
+        </div>
+        <ul class="diff-list">
+          ${shape.focus.map((item) => `<li>• ${item}</li>`).join("")}
+        </ul>
+      `;
+    }
+
+    function pickExercises(goals) {
+      const blocks = [];
+
+      if (goals.includes("warmup_mobility")) {
+        blocks.push({
+          label: "Warm-up & Mobility (5–10 min)",
+          key: "warmup_mobility",
+          note: "Do 2–4 of these before each session to prep joints and raise heart rate."
+        });
       }
 
-      if (hipGap > 0) {
-        result += `<li>🍑 Hip growth: hip thrusts, sumo squats, glute bridges</li>`;
-      } else if (hipGap === 0) {
-        result += `<li>✅ Hip maintenance: glute activation 2x/week</li>`;
+      if (goals.includes("glutes_hips")) {
+        blocks.push({
+          label: "Glutes & Hips (2–3x per week)",
+          key: "glutes_hips",
+          note: "Progressively overload: add weight, reps or sets slowly over time."
+        });
       }
 
-      if (bustGap !== 0) {
-        result += `<li>💪 Bust tone: push-ups, chest press, dumbbell flys</li>`;
-      } else {
-        result += `<li>✅ Chest maintenance: posture, light upper body</li>`;
+      if (goals.includes("shoulders_back")) {
+        blocks.push({
+          label: "Shoulders & Upper Back (2x per week)",
+          key: "shoulders_back",
+          note: "Build the upper-body frame that balances hips and supports posture."
+        });
       }
 
-      result += `</ul><p class="text-sm text-gray-600 mt-2">Note: Bust size can't grow from exercise, but appearance can improve via toning and posture.</p>`;
+      if (goals.includes("waist_core")) {
+        blocks.push({
+          label: "Waist & Core (2–3x per week)",
+          key: "waist_core",
+          note: "Use anti-rotation and bracing to cinch the waist rather than only crunches."
+        });
+      }
 
-      document.getElementById('result').innerHTML = result;
+      if (goals.includes("full_body_fat_loss")) {
+        blocks.push({
+          label: "Full-Body & Conditioning (2–3x per week)",
+          key: "full_body_fat_loss",
+          note: "Combine with daily steps and nutrition for overall fat loss."
+        });
+      }
+
+      return blocks;
+    }
+
+    function buildPlanHTML(shapeType, mainGoal, experience) {
+      const goalKeys = new Set(["warmup_mobility"]);
+
+      if (mainGoal === "hourglass") {
+        goalKeys.add("glutes_hips");
+        goalKeys.add("shoulders_back");
+        goalKeys.add("waist_core");
+      } else if (mainGoal === "smaller_waist") {
+        goalKeys.add("waist_core");
+        goalKeys.add("full_body_fat_loss");
+        goalKeys.add("glutes_hips");
+      } else if (mainGoal === "bigger_glutes") {
+        goalKeys.add("glutes_hips");
+        goalKeys.add("waist_core");
+      } else if (mainGoal === "upper_body") {
+        goalKeys.add("shoulders_back");
+        goalKeys.add("waist_core");
+        goalKeys.add("glutes_hips");
+      } else if (mainGoal === "fat_loss") {
+        goalKeys.add("full_body_fat_loss");
+        goalKeys.add("waist_core");
+        goalKeys.add("glutes_hips");
+      }
+
+      if (shapeType === "Pear") {
+        goalKeys.add("shoulders_back");
+      }
+      if (shapeType === "Rectangle") {
+        goalKeys.add("glutes_hips");
+        goalKeys.add("shoulders_back");
+      }
+      if (shapeType === "Inverted Triangle") {
+        goalKeys.add("glutes_hips");
+      }
+
+      const blocks = pickExercises(Array.from(goalKeys));
+
+      const expLabel =
+        experience === "beginner"
+          ? "Beginner: start with 2–3 BTL sessions per week, 45–60 minutes each, on non-consecutive days."
+          : experience === "intermediate"
+          ? "Intermediate: 3–4 structured sessions per week, 60–75 minutes each."
+          : "Advanced: 4–5 sessions per week with clear progression, deload weeks every 6–8 weeks.";
+
+      const trainingTabsHTML = `
+        <div class="tabs">
+          <span class="tab-pill active">${shapeType} shape</span>
+          <span class="tab-pill">Goal: ${mainGoal.replace("_", " ")}</span>
+          <span class="tab-pill">${experience.charAt(0).toUpperCase() + experience.slice(1)} lifter</span>
+        </div>
+        <p class="exercise-tagline">
+          Suggested weekly structure:<br />
+          • 2–3 strength days/week for beginners, building to 3–4 as you adapt.<br />
+          • Aim for every major muscle group at least 2x/week.
+        </p>
+      `;
+
+      const blockHTML = blocks
+        .map((block) => {
+          const list = EXERCISE_DB[block.key] || [];
+          const itemsHTML = list
+            .map(
+              (ex) => `
+            <div class="exercise-card">
+              <div class="exercise-name">${ex.name}</div>
+              <div class="exercise-meta">
+                ${ex.muscle} · ${ex.equipment} · ${ex.level}
+              </div>
+              <div class="exercise-desc">
+                ${ex.desc}
+              </div>
+            </div>
+          `
+            )
+            .join("");
+
+          return `
+            <section style="margin-top:10px;">
+              <div style="font-size:14px; font-weight:700; margin-bottom:2px;">
+                ${block.label}
+              </div>
+              <div style="font-size:12px; color:#c3c9ff; margin-bottom:4px;">
+                ${block.note}
+              </div>
+              <div class="exercise-grid">
+                ${itemsHTML}
+              </div>
+            </section>
+          `;
+        })
+        .join("");
+
+      return `
+        ${trainingTabsHTML}
+        ${blockHTML}
+        <p class="exercise-tagline" style="margin-top:10px;">
+          Tip: BTL results come from 6–12+ months of consistent training, not 2-week shreds. Log your lifts and keep showing up.
+        </p>
+      `;
+    }
+
+    const form = document.getElementById("measurement-form");
+    const analysisDiv = document.getElementById("analysis");
+    const planDiv = document.getElementById("plan");
+    const resetBtn = document.getElementById("reset-btn");
+
+    const unitsSelect = document.getElementById("units");
+    const unitLabels = {
+      height: document.getElementById("height-unit-label"),
+      weight: document.getElementById("weight-unit-label"),
+      bust: document.getElementById("bust-unit-label"),
+      waist: document.getElementById("waist-unit-label"),
+      hips: document.getElementById("hips-unit-label")
+    };
+
+    unitsSelect.addEventListener("change", () => {
+      const usingInches = unitsSelect.value === "in";
+      unitLabels.height.textContent = usingInches ? "in" : "cm";
+      unitLabels.weight.textContent = usingInches ? "lbs" : "kg";
+      unitLabels.bust.textContent = usingInches ? "in" : "cm";
+      unitLabels.waist.textContent = usingInches ? "in" : "cm";
+      unitLabels.hips.textContent = usingInches ? "in" : "cm";
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const units = unitsSelect.value;
+      const convertLengthToCm = (value) => (units === "in" ? value * 2.54 : value);
+      const convertWeightToKg = (value) => (units === "in" ? value * 0.45359237 : value);
+
+      const name = document.getElementById("name").value;
+      const heightInput = parseFloat(document.getElementById("height").value);
+      const weightInput = parseFloat(document.getElementById("weight").value);
+      const bustInput = parseFloat(document.getElementById("bust").value);
+      const waistInput = parseFloat(document.getElementById("waist").value);
+      const hipsInput = parseFloat(document.getElementById("hips").value);
+      const experience = document.getElementById("experience").value;
+      const goal = document.getElementById("goal").value;
+
+      if (!bustInput || !waistInput || !hipsInput || bustInput <= 0 || waistInput <= 0 || hipsInput <= 0) {
+        analysisDiv.innerHTML =
+          '<p class="helper" style="color:var(--danger);">Please enter valid bust, waist and hip measurements first.</p>';
+        return;
+      }
+
+      const bust = convertLengthToCm(bustInput);
+      const waist = convertLengthToCm(waistInput);
+      const hips = convertLengthToCm(hipsInput);
+
+      let bmi = null;
+      let bmiCategory = null;
+
+      if (heightInput && heightInput > 0 && weightInput && weightInput > 0) {
+        const heightCm = convertLengthToCm(heightInput);
+        const weightKg = convertWeightToKg(weightInput);
+        const heightM = heightCm / 100;
+        bmi = weightKg / (heightM * heightM);
+
+        if (bmi < 18.5) {
+          bmiCategory = "Underweight";
+        } else if (bmi < 25) {
+          bmiCategory = "Healthy weight";
+        } else if (bmi < 30) {
+          bmiCategory = "Overweight";
+        } else if (bmi < 35) {
+          bmiCategory = "Obesity Class I";
+        } else if (bmi < 40) {
+          bmiCategory = "Obesity Class II";
+        } else {
+          bmiCategory = "Obesity Class III";
+        }
+      }
+
+      const analysisHTML = buildAnalysisHTML(name, bust, waist, hips, bmi, bmiCategory);
+      analysisDiv.innerHTML = analysisHTML;
+
+      const { type: shapeType } = classifyShape(bust, waist, hips);
+      const planHTML = buildPlanHTML(shapeType, goal, experience);
+      planDiv.innerHTML = planHTML;
+    });
+
+    resetBtn.addEventListener("click", function () {
+      form.reset();
+      unitsSelect.value = "cm";
+      unitLabels.height.textContent = "cm";
+      unitLabels.weight.textContent = "kg";
+      unitLabels.bust.textContent = "cm";
+      unitLabels.waist.textContent = "cm";
+      unitLabels.hips.textContent = "cm";
+
+      analysisDiv.innerHTML =
+        '<p class="helper">Fill in your measurements and click <strong>Generate BTL F Plan</strong> to see your shape type, hourglass ratios, BMI and key focus areas.</p>';
+      planDiv.innerHTML =
+        '<p class="helper">Your glutes, waist, shoulders and full-body blocks will appear here, powered by the built-in exercise database. Suggested schedule: start with <strong>2–3 strength days/week</strong>, then build to <strong>3–4 days</strong> as you adapt.</p>';
     });
   </script>
-
 </body>
 </html>
