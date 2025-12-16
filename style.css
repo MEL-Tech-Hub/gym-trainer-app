@@ -7,19 +7,18 @@
   --card-bg: #0a1432;
 
   --text-main: #eaf0ff;
-  --text-muted: rgba(220,230,255,.78);
-
-  --stroke: rgba(130,170,255,.25);
+  --text-muted: rgba(220,230,255,0.78);
 
   --blue-main: #1aa3ff;
   --blue-deep: #0b63ce;
   --mint: #76ffea;
 
-  --shadow: 0 18px 50px rgba(0,0,0,.55);
+  --stroke: rgba(130,170,255,0.25);
+  --shadow: 0 18px 50px rgba(0,0,0,0.55);
 }
 
 /* =====================================================
-   RESET & BASE
+   RESET
 ===================================================== */
 * {
   box-sizing: border-box;
@@ -42,15 +41,11 @@ body {
    TOP BAR
 ===================================================== */
 .topbar {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 18px 16px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-
-  background: linear-gradient(to bottom, rgba(2,6,17,.85), rgba(2,6,17,.45));
-  backdrop-filter: blur(10px);
+  align-items: center;
+  padding: 18px 40px;
+  background: linear-gradient(90deg, #020611, #061b3a);
   border-bottom: 1px solid var(--stroke);
 }
 
@@ -61,347 +56,246 @@ body {
 }
 
 .brand-mark {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: conic-gradient(
-    from 120deg,
-    var(--blue-main),
-    var(--blue-deep),
-    var(--mint),
-    var(--blue-main)
-  );
-  box-shadow: 0 0 16px rgba(26,163,255,.65);
+  background: radial-gradient(circle, var(--mint), var(--blue-main));
 }
 
 .brand-name {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .12em;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
-/* =====================================================
-   NAV
-===================================================== */
 .nav {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .nav-link {
   text-decoration: none;
-  font-size: 13px;
-  font-weight: 700;
   color: var(--text-main);
-
-  padding: 8px 14px;
+  padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid rgba(145,175,255,.25);
-  background: rgba(4,14,45,.45);
-  transition: all .15s ease;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
-.nav-link:hover {
-  background: rgba(10,30,95,.55);
-}
-
+.nav-link:hover,
 .nav-link.active {
-  background: linear-gradient(135deg, var(--blue-main), var(--blue-deep));
-  color: #041028;
-  border: none;
+  background: linear-gradient(90deg, var(--blue-main), var(--blue-deep));
 }
 
 /* =====================================================
-   HERO (HOME)
+   HERO LAYOUT
 ===================================================== */
 .hero {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 28px 16px;
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 22px;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
   align-items: center;
+  padding: 80px 60px;
 }
 
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; }
+.hero-left {
+  max-width: 620px;
 }
 
-.eyebrow {
+.pill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
+  gap: 8px;
+  padding: 8px 16px;
   border-radius: 999px;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .22em;
-  text-transform: uppercase;
+  background: rgba(118,255,234,0.08);
+  border: 1px solid rgba(118,255,234,0.25);
   color: var(--mint);
-  background: rgba(6,16,52,.55);
-  border: 1px solid rgba(118,255,234,.25);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-bottom: 22px;
 }
 
-.hero-title {
-  margin-top: 14px;
-  font-size: 62px;
-  font-weight: 900;
-  line-height: .95;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+.hero h1 {
+  font-size: 56px;
+  line-height: 1.05;
+  margin-bottom: 18px;
 }
 
-@media (max-width: 600px) {
-  .hero-title { font-size: 44px; }
+.hero h1 span {
+  color: var(--blue-main);
 }
 
-.accent { color: var(--blue-main); }
-
-.hero-sub {
-  margin-top: 14px;
-  max-width: 600px;
-  font-size: 15px;
-  line-height: 1.65;
+.hero p {
+  font-size: 16px;
   color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 32px;
 }
 
 /* =====================================================
    BUTTONS
 ===================================================== */
-.hero-actions {
-  margin-top: 22px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
 .btn {
-  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 26px;
   border-radius: 999px;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
-  border: 1px solid rgba(145,175,255,.28);
-  transition: all .15s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-primary {
-  background: linear-gradient(
-    135deg,
-    var(--blue-main),
-    var(--blue-deep),
-    var(--mint)
-  );
-  color: #041028;
-  border: none;
-  box-shadow: var(--shadow);
+  background: linear-gradient(90deg, var(--blue-main), var(--mint));
+  color: #001018;
 }
 
 .btn-ghost {
   background: transparent;
   color: var(--text-main);
-}
-
-.btn:hover {
-  transform: translateY(-1px);
-}
-
-/* =====================================================
-   MINI STATS
-===================================================== */
-.mini-stats {
-  margin-top: 18px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.stat {
-  min-width: 150px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  background: rgba(6,16,52,.55);
   border: 1px solid var(--stroke);
-  box-shadow: 0 14px 40px rgba(0,0,0,.25);
-}
-
-.stat-num {
-  font-weight: 900;
-  color: white;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: rgba(220,230,255,.7);
 }
 
 /* =====================================================
-   PAGE + CARD (INPUT / RESULTS)
+   🔥 HERO IMAGE — FINAL FIX (NOT BIG ANYMORE)
+===================================================== */
+.hero-right {
+  width: 360px;          /* HARD LIMIT */
+  max-width: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-media {
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero-media img {
+  width: 100%;
+  height: 400px;         /* HARD HEIGHT */
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.hero-media.silhouette img {
+  filter: brightness(0.82) contrast(1.12);
+}
+
+/* =====================================================
+   CARDS (INPUT / RESULTS)
 ===================================================== */
 .page {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 22px 16px 30px;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
 }
 
 .card {
-  background: radial-gradient(circle at top left, rgba(74,120,255,.10), rgba(3,11,35,.92));
-  border: 1px solid var(--stroke);
-  border-radius: 18px;
-  padding: 18px;
+  width: 100%;
+  max-width: 860px;
+  background: linear-gradient(180deg, #08173a, var(--card-bg));
+  border-radius: 22px;
+  padding: 40px;
   box-shadow: var(--shadow);
-  backdrop-filter: blur(10px);
+  border: 1px solid var(--stroke);
 }
 
-.card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.pill {
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(118,255,234,.16);
-  color: var(--mint);
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  font-weight: 900;
+.card h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
 }
 
 .muted {
   color: var(--text-muted);
-  line-height: 1.6;
+  margin-bottom: 32px;
 }
 
 /* =====================================================
-   FORMS
+   FORM
 ===================================================== */
-.form { margin-top: 14px; }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
 
 .grid2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-@media (max-width: 650px) {
-  .grid2 { grid-template-columns: 1fr; }
+  gap: 20px;
 }
 
 .field label {
   display: block;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  color: rgba(180,195,255,.95);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
   margin-bottom: 6px;
-  font-weight: 900;
+  color: var(--text-muted);
 }
 
 .field input,
 .field select {
   width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(146,175,255,.45);
-  background: rgba(4,15,50,.92);
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--stroke);
+  background: #050f28;
   color: var(--text-main);
+  font-size: 15px;
 }
 
-.field input::placeholder {
-  color: rgba(190,205,255,.55);
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
 }
 
-.field input:focus,
-.field select:focus {
-  border-color: rgba(118,255,234,.9);
-  box-shadow: 0 0 0 2px rgba(118,255,234,.25);
+.hint {
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
 /* =====================================================
    FOOTER
 ===================================================== */
 .footer {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 18px 16px 26px;
   text-align: center;
-  font-size: 12px;
-  color: rgba(165,180,240,.75);
-}
-/* ============================
-   SILHOUETTE IMAGE PROTECTION
-   ============================ */
-
-.hero-media {
-  position: relative;
-  max-width: 480px;
+  padding: 30px;
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
-.hero-media img {
-  width: 100%;
-  height: auto;
-  border-radius: 22px;
+/* =====================================================
+   MOBILE
+===================================================== */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-right {
+    width: 280px;
+    margin: 0 auto;
+  }
+
+  .hero-media img {
+    height: 320px;
+  }
+
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
 }
-
-/* Silhouette anonymisation */
-.hero-media.silhouette img {
-  filter:
-    brightness(0.35)
-    contrast(1.25)
-    saturate(0.6)
-    blur(1.2px);
-}
-
-/* Soft glow outline – keeps it premium */
-.hero-media.silhouette::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 22px;
-  background: radial-gradient(
-    circle at 50% 40%,
-    rgba(118,255,234,.25),
-    transparent 60%
-  );
-  pointer-events: none;
-}
-/* ===============================
-   HERO IMAGE FIX (SIZE & CONTROL)
-   =============================== */
-
-.hero-right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 520px;          /* controls overall image block size */
-}
-
-.hero-media {
-  width: 100%;
-  max-width: 420px;          /* 👈 THIS makes it similar to the old male image */
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-}
-
-/* Image itself */
-.hero-media img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-
-/* Optional: subtle silhouette / anonymity */
-.hero-media.silhouette img {
-  filter: contrast(1.05) brightness(0.9);
-}
-
-
