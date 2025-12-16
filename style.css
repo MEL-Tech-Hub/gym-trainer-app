@@ -372,4 +372,36 @@ body {
   );
   pointer-events: none;
 }
+/* ===============================
+   HERO IMAGE FIX (SIZE & CONTROL)
+   =============================== */
+
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 520px;          /* controls overall image block size */
+}
+
+.hero-media {
+  width: 100%;
+  max-width: 420px;          /* 👈 THIS makes it similar to the old male image */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* Image itself */
+.hero-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Optional: subtle silhouette / anonymity */
+.hero-media.silhouette img {
+  filter: contrast(1.05) brightness(0.9);
+}
+
 
