@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Workout Blocks • Build To Last Fitness ; Body Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/gym-trainer-app/style.css?v=4" />
+
+  <style>
+    .blocks-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:14px;
+    }
+    @media(max-width:900px){ .blocks-grid{grid-template-columns:1fr;} }
+
+    .block{
+      background: rgba(6,16,52,.55);
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+    .block h3{
+      font-size:13px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .block ul{
+      margin-left:18px;
+      color: rgba(230,240,255,.92);
+      line-height:1.6;
+    }
+    .note{
+      margin-top:12px;
+      color: rgba(220,230,255,.78);
+      line-height:1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">Build To Last Fitness ; Body Analysis</span>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="/gym-trainer-app/index.html">Home</a>
+      <a class="nav-link" href="/gym-trainer-app/input.html">Start Analysis</a>
+      <a class="nav-link" href="/gym-trainer-app/contact.html">Contact Us</a>
+      <a class="nav-link" href="/gym-trainer-app/faqs.html">FAQs</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="card">
+      <div class="card-head">
+        <h2>Workout Blocks</h2>
+        <span class="pill">Step 3</span>
+      </div>
+
+      <p class="muted" id="blockSummary">
+        Loading blocks…
+      </p>
+
+      <div class="blocks-grid" id="blocksGrid"></div>
+
+      <div class="actions" style="margin-top:14px;">
+        <a class="btn btn-primary" id="backToResults" href="/gym-trainer-app/results.html">Back to Results</a>
+        <a class="btn btn-ghost" href="/gym-trainer-app/input.html">Start Over</a>
+      </div>
+
+      <p class="hint">Warm up 5–10 minutes. Use a weight that is challenging with good form.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © <span id="year"></span> Build To Last Fitness. Informational only.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const qs = new URLSearchParams(window.location.search);
+    const level = (qs.get("level") || "intermediate").toLowerCase();
+    const days = parseInt(qs.get("days") || "3", 10);
+
+    // Determine sets/reps guidance by level
+    let sets = "3–4 sets";
+    let reps = "8–12 reps";
+    let core = "2–3 sets";
+
+    if (level === "beginner"){ sets = "3 sets"; reps = "10–12 reps"; core = "2 sets"; }
+    if (level === "advanced"){ sets = "4–5 sets"; reps = "6–12 reps"; core = "3 sets"; }
+
+    // Blocks templates
+    const blocks = [];
+
+    blocks.push({
+      title: "Glutes + Hamstrings (Day 1)",
+      items: [
+        `Hip Thrust (${sets}, ${reps})`,
+        `Romanian Deadlift (${sets}, ${reps})`,
+        `Cable Kickbacks (${sets}, ${reps})`,
+        `Seated/lying Hamstring Curl (${sets}, ${reps})`,
+        `Core: Dead Bug + Plank (${core})`
+      ]
+    });
+
+    blocks.push({
+      title: "Upper Body Shape + Core (Day 2)",
+      items: [
+        `Lat Pulldown / Assisted Pull-up (${sets}, ${reps})`,
+        `Seated Row (${sets}, ${reps})`,
+        `Shoulder Press (${sets}, ${reps})`,
+        `Lateral Raises (${sets}, 12–15 reps)`,
+        `Core: Pallof Press + Side Plank (${core})`
+      ]
+    });
+
+    if (days >= 3){
+      blocks.push({
+        title: "Glutes + Quads (Day 3)",
+        items: [
+          `Squat / Hack Squat (${sets}, ${reps})`,
+          `Bulgarian Split Squat (${sets}, ${reps})`,
+          `Leg Press (glute bias) (${sets}, ${reps})`,
+          `Cable Abductions (${sets}, 12–15 reps)`,
+          `Core: Reverse Crunch (${core})`
+        ]
+      });
+    }
+
+    if (days >= 4){
+      blocks.push({
+        title: "Conditioning + Waist Control (Day 4)",
+        items: [
+          `Incline walk or bike (20–30 min steady)`,
+          `Glute med: Band walks (3×15)`,
+          `Core: Plank Variations (${core})`,
+          `Core: Hanging Knee Raise (${core})`,
+          `Stretching / Mobility (10 min)`
+        ]
+      });
+    }
+
+    if (days >= 5){
+      blocks.push({
+        title: "Extra Glutes / Full Body (Day 5)",
+        items: [
+          `Deadlift variation (${sets}, ${reps})`,
+          `Step-ups (${sets}, ${reps})`,
+          `Glute Bridge / Frog Pumps (${sets}, 12–15 reps)`,
+          `Chest Press (${sets}, ${reps})`,
+          `Core finisher (${core})`
+        ]
+      });
+    }
+
+    document.getElementById("blockSummary").textContent =
+      `Your blocks are customised for ${days} day(s)/week at ${level} level (${sets}, ${reps}).`;
+
+    const grid = document.getElementById("blocksGrid");
+    grid.innerHTML = blocks.map(b => `
+      <div class="block">
+        <h3>${b.title}</h3>
+        <ul>${b.items.map(i => `<li>${i}</li>`).join("")}</ul>
+      </div>
+    `).join("");
+
+    // pass query back to results
+    const passThrough = window.location.search || "";
+    document.getElementById("backToResults").href = "/gym-trainer-app/results.html" + passThrough;
+  </script>
+</body>
+</html>
