@@ -34,3 +34,116 @@ body {
     radial-gradient(circle at 0% 0%, #123b7a 0%, transparent 55%),
     radial-gradient(circle at 100% 0%, #0b63ce 0%, transparent 50%),
     radial-gradient(circle at 100% 100%, #
+
+/* =====================================
+   INPUT PAGE (and all inner pages)
+===================================== */
+
+/* page container */
+.page{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 22px 16px 30px;
+}
+
+/* card look */
+.card{
+  background: radial-gradient(circle at top left, rgba(74,120,255,.10), rgba(3,11,35,.92));
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+/* header inside card */
+.card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.card-head h2{
+  font-size: 22px;
+  font-weight: 900;
+}
+
+/* small pill badge */
+.pill{
+  font-size:11px;
+  padding:4px 10px;
+  border-radius:999px;
+  background: rgba(118,255,234,.16);
+  color: var(--mint);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-weight: 900;
+}
+
+/* muted paragraph text */
+.muted{
+  color: rgba(220,230,255,.78);
+  line-height: 1.6;
+}
+
+/* form layout */
+.form{ margin-top: 14px; }
+
+.grid2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+  margin-bottom:12px;
+}
+@media(max-width:650px){
+  .grid2{ grid-template-columns:1fr; }
+}
+
+.field label{
+  display:block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color: rgba(180,195,255,.95);
+  margin-bottom:6px;
+  font-weight: 900;
+}
+
+/* input/select styling */
+.field input,
+.field select{
+  width:100%;
+  padding:12px 12px;
+  border-radius:12px;
+  border:1px solid rgba(146,175,255,.45);
+  background: rgba(4,15,50,.92);
+  color: var(--text-main);
+  outline:none;
+}
+
+.field input::placeholder{
+  color: rgba(190,205,255,.55);
+}
+
+.field input:focus,
+.field select:focus{
+  border-color: rgba(118,255,234,.9);
+  box-shadow: 0 0 0 2px rgba(118,255,234,.25);
+}
+
+/* buttons area */
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+/* hint text */
+.hint{
+  margin-top:10px;
+  color: rgba(190,205,255,.7);
+  font-size: 12px;
+}
