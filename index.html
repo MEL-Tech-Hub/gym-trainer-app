@@ -2,53 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Build To Last Fitness ; Body Analysis</title>
-  <link rel="stylesheet" href="styles.css"/>
-</head>
-<body>
-  <header class="topbar">
-    <div class="brand">
-      <span class="brand-mark"></span>
-      <span class="brand-name">Build To Last Fitness ; Body Analysis</span>
-    </div>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <nav class="nav">
-      <a class="nav-link active" href="index.html">Home</a>
-      <a class="nav-link" href="contact.html">Contact Us</a>
-      <a class="nav-link" href="faqs.html">FAQs</a>
-    </nav>
-  </header>
+  <!-- If you already use styles.css, keep this line and remove the <style> block below if you want -->
+  <link rel="stylesheet" href="styles.css" />
 
-  <main class="hero">
-    <div class="hero-left">
-      <div class="eyebrow">BTL BODY ANALYSIS • 2025</div>
-      <h1 class="hero-title">
-        BUILD YOUR<br/>
-        <span class="accent">FIGURE-8</span><br/>
-        BLUEPRINT
-      </h1>
-      <p class="hero-sub">
-        Enter your bust, waist, hips, height and weight. Get BMI, hourglass ratios, shape insights,
-        and a weekly gym plan designed to move you toward a balanced hourglass silhouette.
-      </p>
+  <!-- OPTIONAL: If you want index.html to look perfect even without styles.css, keep this block.
+       If you already have styles.css from my earlier setup, you can delete the whole <style>...</style> block. -->
+  <style>
+    :root{
+      --bg1:#030b1a; --bg2:#020611; --card:#0a1432;
+      --stroke:rgba(130,170,255,.25);
+      --text:#eaf0ff; --muted:#b7c3ff;
+      --blue:#1aa3ff; --blue2:#0b63ce; --mint:#76ffea;
+      --shadow:0 18px 50px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+    body{
+      min-height:100vh;color:var(--text);
+      background:
+        radial-gradient(circle at 0% 0%, #123b7a 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, #0b63ce 0, transparent 50%),
+        radial-gradient(circle at 100% 100%, #051027 0, var(--bg2) 60%);
+      overflow-x:hidden;
+    }
 
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="input.html">Start Body Analysis →</a>
-        <a class="btn btn-ghost" href="faqs.html">Learn More</a>
-      </div>
-
-      <div class="mini-stats">
-        <div class="stat">
-          <div class="stat-num">BMI</div>
-          <div class="stat-label">Health snapshot</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">WHR</div>
-          <div class="stat-label">Waist–Hip ratio</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">Plan</div>
-          <div class="stat-label">3–4 days/week</div>
-        </div>
-      </d
+    /* Top bar */
+    .topbar{
+      max-width:1200px;margin:0 auto;padding:18px 16px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      position:sticky;top:0;z-index:20;
+      background:linear-gradient(to bottom, rgba(2,6,17,.78), rgba(2,6,17,.35));
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(130,170,255,.12);
+    }
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand-mark{
+      width:14px;height:14px;border-radius:50%;
+      backgroun
