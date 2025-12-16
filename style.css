@@ -33,7 +33,10 @@ body {
   background:
     radial-gradient(circle at 0% 0%, #123b7a 0%, transparent 55%),
     radial-gradient(circle at 100% 0%, #0b63ce 0%, transparent 50%),
-    radial-gradient(circle at 100% 100%, #
+    radial-gradient(circle at 100% 100%, #051027 0%, var(--bg-dark) 60%);
+  overflow-x: hidden;
+}
+
 
 /* =====================================
    INPUT PAGE (and all inner pages)
@@ -147,3 +150,4 @@ body {
   color: rgba(190,205,255,.7);
   font-size: 12px;
 }
+
