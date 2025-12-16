@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Results • Build To Last Fitness ; Body Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/gym-trainer-app/style.css?v=4" />
+
+  <style>
+    /* small extra styling just for this page */
+    .result-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:14px;
+    }
+    @media(max-width:850px){ .result-grid{grid-template-columns:1fr;} }
+
+    .metric{
+      background: rgba(6,16,52,.55);
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+    .metric h3{font-size:13px; letter-spacing:.12em; text-transform:uppercase; opacity:.9}
+    .metric .big{font-size:34px; font-weight:900; margin-top:8px}
+    .metric .small{color: rgba(220,230,255,.78); margin-top:6px; line-height:1.55}
+
+    .bar{
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      overflow:hidden;
+      border:1px solid rgba(145,175,255,.18);
+      margin-top:10px;
+    }
+    .bar > div{
+      height:100%;
+      width: 0%;
+      background: linear-gradient(135deg, var(--blue-main), var(--blue-deep), var(--mint));
+    }
+
+    .callout{
+      margin-top:14px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(118,255,234,.22);
+      background: rgba(6,16,52,.45);
+      color: rgba(230,240,255,.92);
+      line-height:1.6;
+    }
+
+    .actions{margin-top:14px}
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">Build To Last Fitness ; Body Analysis</span>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="/gym-trainer-app/index.html">Home</a>
+      <a class="nav-link" href="/gym-trainer-app/input.html">Start Analysis</a>
+      <a class="nav-link" href="/gym-trainer-app/contact.html">Contact Us</a>
+      <a class="nav-link" href="/gym-trainer-app/faqs.html">FAQs</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="card">
+      <div class="card-head">
+        <h2>Your Results</h2>
+        <span class="pill">Step 2</span>
+      </div>
+
+      <p class="muted" id="summaryLine">
+        Loading your results…
+      </p>
+
+      <div class="result-grid">
+        <div class="metric">
+          <h3>BMI</h3>
+          <div class="big" id="bmiValue">—</div>
+          <div class="small" id="bmiNote">—</div>
+          <div class="bar"><div id="bmiBar"></div></div>
+        </div>
+
+        <div class="metric">
+          <h3>Waist-to-Hip Ratio</h3>
+          <div class="big" id="whrValue">—</div>
+          <div class="small" id="whrNote">—</div>
+          <div class="bar"><div id="whrBar"></div></div>
+        </div>
+
+        <div class="metric">
+          <h3>Hourglass Ratio</h3>
+          <div class="big" id="hourglassValue">—</div>
+          <div class="small" id="hourglassNote">—</div>
+          <div class="bar"><div id="hourglassBar"></div></div>
+        </div>
+
+        <div class="metric">
+          <h3>Recommended Frequency</h3>
+          <div class="big" id="freqValue">—</div>
+          <div class="small" id="freqNote">—</div>
+        </div>
+      </div>
+
+      <div class="callout" id="planText">
+        —
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" id="viewBlocksBtn" href="/gym-trainer-app/blocks.html">
+          View Workout Blocks →
+        </a>
+        <a class="btn btn-ghost" id="backBtn" href="/gym-trainer-app/input.html">
+          Back
+        </a>
+      </div>
+
+      <p class="hint">
+        Informational only. If you have a medical condition, get personalised advice from a qualified professional.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © <span id="year"></span> Build To Last Fitness. Informational only.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const qs = new URLSearchParams(window.location.search);
+
+    // Read inputs
+    const units = qs.get("units") || "metric"; // metric or imperial
+    const level = (qs.get("level") || "intermediate").toLowerCase();
+    const days = parseInt(qs.get("days") || "3", 10);
+
+    const heightIn = parseFloat(qs.get("height") || "0");
+    const weightIn = parseFloat(qs.get("weight") || "0");
+    const bustIn   = parseFloat(qs.get("bust") || "0");
+    const waistIn  = parseFloat(qs.get("waist") || "0");
+    const hipsIn   = parseFloat(qs.get("hips") || "0");
+
+    // Convert to metric for calculations
+    const inchToCm = (x) => x * 2.54;
+    const lbToKg = (x) => x * 0.45359237;
+
+    const heightCm = units === "imperial" ? inchToCm(heightIn) : heightIn;
+    const weightKg = units === "imperial" ? lbToKg(weightIn) : weightIn;
+    const bustCm   = units === "imperial" ? inchToCm(bustIn)  : bustIn;
+    const waistCm  = units === "imperial" ? inchToCm(waistIn) : waistIn;
+    const hipsCm   = units === "imperial" ? inchToCm(hipsIn)  : hipsIn;
+
+    // Guard
+    function badInput(){
+      return !heightCm || !weightKg || !bustCm || !waistCm || !hipsCm || heightCm <= 0 || weightKg <= 0;
+    }
+
+    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+    function round(n, d=1){ return Number(n.toFixed(d)); }
+
+    if (badInput()){
+      document.getElementById("summaryLine").textContent = "Missing or invalid inputs. Please go back and enter valid numbers.";
+      document.getElementById("planText").textContent = "Tip: make sure all fields are filled in, and height/weight are greater than zero.";
+      document.getElementById("backBtn").href = "/gym-trainer-app/input.html";
+    } else {
+      // BMI
+      const hM = heightCm / 100;
+      const bmi = weightKg / (hM * hM);
+
+      let bmiLabel = "";
+      if (bmi < 18.5) bmiLabel = "Underweight";
+      else if (bmi < 25) bmiLabel = "Normal range";
+      else if (bmi < 30) bmiLabel = "Overweight";
+      else bmiLabel = "Obesity range";
+
+      // WHR
+      const whr = waistCm / hipsCm;
+
+      // "Hourglass ratio" (simple shape score): waist vs average of bust & hips
+      // lower is “more hourglass” (smaller waist relative to bust+hips)
+      const avgBH = (bustCm + hipsCm) / 2;
+      const hourglass = waistCm / avgBH;
+
+      // Bars (just a visual score 0–100)
+      const bmiScore = clamp(((bmi - 15) / (40 - 15)) * 100, 0, 100);
+      const whrScore = clamp(((whr - 0.65) / (1.05 - 0.65)) * 100, 0, 100);
+      const hgScore  = clamp(((hourglass - 0.55) / (0.95 - 0.55)) * 100, 0, 100);
+
+      document.getElementById("bmiValue").textContent = round(bmi, 1);
+      document.getElementById("bmiNote").textContent = `Category: ${bmiLabel}`;
+      document.getElementById("bmiBar").style.width = `${bmiScore}%`;
+
+      document.getElementById("whrValue").textContent = round(whr, 2);
+      document.getElementById("whrNote").textContent = "Lower generally indicates a smaller waist relative to hips.";
+      document.getElementById("whrBar").style.width = `${whrScore}%`;
+
+      document.getElementById("hourglassValue").textContent = round(hourglass, 2);
+      document.getElementById("hourglassNote").textContent = "Lower generally indicates a smaller waist relative to bust/hips.";
+      document.getElementById("hourglassBar").style.width = `${hgScore}%`;
+
+      // Recommend frequency: respect what user can train, but suggest based on level
+      let recommended = 3;
+      if (level === "beginner") recommended = 3;
+      if (level === "intermediate") recommended = 4;
+      if (level === "advanced") recommended = 5;
+
+      // Cap by their availability
+      const finalFreq = Math.min(days, recommended);
+
+      document.getElementById("freqValue").textContent = `${finalFreq} days / week`;
+      document.getElementById("freqNote").textContent =
+        `Based on your experience (${level}) and your availability (${days} days/week).`;
+
+      // Plan text
+      let goalText = "";
+      if (hourglass <= 0.70) goalText = "You already have a strong waist-to-curve ratio. Focus on glutes + upper body shaping while maintaining your waist.";
+      else if (hourglass <= 0.80) goalText = "You’re close to a classic figure-8 look. Focus on waist control (core) + glute hypertrophy + upper-body posture/shape.";
+      else goalText = "Main focus: build glutes/hips + shape upper body, while reducing waist measurement with consistent training and nutrition.";
+
+      const unitText = units === "imperial" ? "in/lbs (converted to metric for calculations)" : "cm/kg";
+
+      document.getElementById("summaryLine").textContent =
+        `Using ${unitText}. Height: ${round(heightCm)}cm, Weight: ${round(weightKg,1)}kg, Bust: ${round(bustCm)}cm, Waist: ${round(waistCm)}cm, Hips: ${round(hipsCm)}cm.`;
+
+      document.getElementById("planText").innerHTML =
+        `<strong>Build To Last Blueprint:</strong><br>
+         ${goalText}<br><br>
+         <strong>Weekly structure (${finalFreq} days/week):</strong><br>
+         • 2× Glutes/Legs focus<br>
+         • 1× Upper-body shaping (back/shoulders) + core<br>
+         ${finalFreq >= 4 ? "• 1× Conditioning + core (low impact)" : ""}
+         ${finalFreq >= 5 ? "<br>• 1× Extra glutes/hamstrings or full-body strength" : ""}`;
+
+      // Pass query string through to blocks page so it knows the chosen frequency etc.
+      const passThrough = window.location.search || "";
+      document.getElementById("viewBlocksBtn").href = "/gym-trainer-app/blocks.html" + passThrough;
+      document.getElementById("backBtn").href = "/gym-trainer-app/input.html";
+    }
+  </script>
+
+</body>
+</html>
