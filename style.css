@@ -1,14 +1,15 @@
-/* =========================
-   GLOBAL VARIABLES
-========================= */
+/* =====================================================
+   VARIABLES
+===================================================== */
 :root {
   --bg-dark: #020611;
   --bg-mid: #030b1a;
-  --card: #0a1432;
-  --stroke: rgba(130,170,255,.25);
+  --card-bg: #0a1432;
 
   --text-main: #eaf0ff;
-  --text-muted: #b7c3ff;
+  --text-muted: rgba(220,230,255,.78);
+
+  --stroke: rgba(130,170,255,.25);
 
   --blue-main: #1aa3ff;
   --blue-deep: #0b63ce;
@@ -17,9 +18,9 @@
   --shadow: 0 18px 50px rgba(0,0,0,.55);
 }
 
-/* =========================
+/* =====================================================
    RESET & BASE
-========================= */
+===================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -37,20 +38,214 @@ body {
   overflow-x: hidden;
 }
 
+/* =====================================================
+   TOP BAR
+===================================================== */
+.topbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-/* =====================================
-   INPUT PAGE (and all inner pages)
-===================================== */
+  background: linear-gradient(to bottom, rgba(2,6,17,.85), rgba(2,6,17,.45));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--stroke);
+}
 
-/* page container */
-.page{
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 120deg,
+    var(--blue-main),
+    var(--blue-deep),
+    var(--mint),
+    var(--blue-main)
+  );
+  box-shadow: 0 0 16px rgba(26,163,255,.65);
+}
+
+.brand-name {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* =====================================================
+   NAV
+===================================================== */
+.nav {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(145,175,255,.25);
+  background: rgba(4,14,45,.45);
+  transition: all .15s ease;
+}
+
+.nav-link:hover {
+  background: rgba(10,30,95,.55);
+}
+
+.nav-link.active {
+  background: linear-gradient(135deg, var(--blue-main), var(--blue-deep));
+  color: #041028;
+  border: none;
+}
+
+/* =====================================================
+   HERO (HOME)
+===================================================== */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 16px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 22px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--mint);
+  background: rgba(6,16,52,.55);
+  border: 1px solid rgba(118,255,234,.25);
+}
+
+.hero-title {
+  margin-top: 14px;
+  font-size: 62px;
+  font-weight: 900;
+  line-height: .95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 44px; }
+}
+
+.accent { color: var(--blue-main); }
+
+.hero-sub {
+  margin-top: 14px;
+  max-width: 600px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+.hero-actions {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  text-decoration: none;
+  border: 1px solid rgba(145,175,255,.28);
+  transition: all .15s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--blue-main),
+    var(--blue-deep),
+    var(--mint)
+  );
+  color: #041028;
+  border: none;
+  box-shadow: var(--shadow);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-main);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* =====================================================
+   MINI STATS
+===================================================== */
+.mini-stats {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  min-width: 150px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(6,16,52,.55);
+  border: 1px solid var(--stroke);
+  box-shadow: 0 14px 40px rgba(0,0,0,.25);
+}
+
+.stat-num {
+  font-weight: 900;
+  color: white;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: rgba(220,230,255,.7);
+}
+
+/* =====================================================
+   PAGE + CARD (INPUT / RESULTS)
+===================================================== */
+.page {
   max-width: 980px;
   margin: 0 auto;
   padding: 22px 16px 30px;
 }
 
-/* card look */
-.card{
+.card {
   background: radial-gradient(circle at top left, rgba(74,120,255,.10), rgba(3,11,35,.92));
   border: 1px solid var(--stroke);
   border-radius: 18px;
@@ -59,25 +254,18 @@ body {
   backdrop-filter: blur(10px);
 }
 
-/* header inside card */
-.card-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:10px;
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.card-head h2{
-  font-size: 22px;
-  font-weight: 900;
-}
-
-/* small pill badge */
-.pill{
-  font-size:11px;
-  padding:4px 10px;
-  border-radius:999px;
+.pill {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
   background: rgba(118,255,234,.16);
   color: var(--mint);
   text-transform: uppercase;
@@ -85,69 +273,65 @@ body {
   font-weight: 900;
 }
 
-/* muted paragraph text */
-.muted{
-  color: rgba(220,230,255,.78);
+.muted {
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
-/* form layout */
-.form{ margin-top: 14px; }
+/* =====================================================
+   FORMS
+===================================================== */
+.form { margin-top: 14px; }
 
-.grid2{
-  display:grid;
+.grid2 {
+  display: grid;
   grid-template-columns: 1fr 1fr;
-  gap:12px;
-  margin-bottom:12px;
-}
-@media(max-width:650px){
-  .grid2{ grid-template-columns:1fr; }
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.field label{
-  display:block;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
+@media (max-width: 650px) {
+  .grid2 { grid-template-columns: 1fr; }
+}
+
+.field label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
   color: rgba(180,195,255,.95);
-  margin-bottom:6px;
+  margin-bottom: 6px;
   font-weight: 900;
 }
 
-/* input/select styling */
 .field input,
-.field select{
-  width:100%;
-  padding:12px 12px;
-  border-radius:12px;
-  border:1px solid rgba(146,175,255,.45);
+.field select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(146,175,255,.45);
   background: rgba(4,15,50,.92);
   color: var(--text-main);
-  outline:none;
 }
 
-.field input::placeholder{
+.field input::placeholder {
   color: rgba(190,205,255,.55);
 }
 
 .field input:focus,
-.field select:focus{
+.field select:focus {
   border-color: rgba(118,255,234,.9);
   box-shadow: 0 0 0 2px rgba(118,255,234,.25);
 }
 
-/* buttons area */
-.actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:12px;
-}
-
-/* hint text */
-.hint{
-  margin-top:10px;
-  color: rgba(190,205,255,.7);
+/* =====================================================
+   FOOTER
+===================================================== */
+.footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 16px 26px;
+  text-align: center;
   font-size: 12px;
+  color: rgba(165,180,240,.75);
 }
-
