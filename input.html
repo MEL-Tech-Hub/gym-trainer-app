@@ -5,10 +5,13 @@
   <title>Start Analysis • Build To Last Fitness ; Body Analysis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" href="style.css" />
+  <!-- IMPORTANT: absolute path for GitHub Pages -->
+  <link rel="stylesheet" href="/gym-trainer-app/style.css?v=4" />
 </head>
 
 <body>
+
+  <!-- TOP NAV -->
   <header class="topbar">
     <div class="brand">
       <span class="brand-mark"></span>
@@ -16,36 +19,42 @@
     </div>
 
     <nav class="nav">
-      <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link active" href="input.html">Start Analysis</a>
-      <a class="nav-link" href="contact.html">Contact Us</a>
-      <a class="nav-link" href="faqs.html">FAQs</a>
+      <a class="nav-link" href="/gym-trainer-app/index.html">Home</a>
+      <a class="nav-link active" href="/gym-trainer-app/input.html">Start Analysis</a>
+      <a class="nav-link" href="/gym-trainer-app/contact.html">Contact Us</a>
+      <a class="nav-link" href="/gym-trainer-app/faqs.html">FAQs</a>
     </nav>
   </header>
 
+  <!-- PAGE CONTENT -->
   <main class="page">
     <section class="card">
+
       <div class="card-head">
         <h2>Enter Your Measurements</h2>
         <span class="pill">Step 1</span>
       </div>
 
       <p class="muted">
-        Fill in your measurements and generate your results. You’ll get BMI, figure-8 ratios, and a weekly workout blueprint.
+        Fill in your measurements to generate your personalised results.
+        You’ll receive BMI, figure-8 body ratios, and a recommended weekly
+        workout structure designed to help you build to last.
       </p>
 
-      <form class="form" action="results.html" method="GET">
+      <!-- FORM -->
+      <form class="form" action="/gym-trainer-app/results.html" method="GET">
+
         <div class="grid2">
           <div class="field">
-            <label>Units</label>
+            <label>Measurement Units</label>
             <select name="units" required>
-              <option value="cm" selected>cm / kg</option>
-              <option value="in">in / lbs</option>
+              <option value="metric" selected>cm / kg</option>
+              <option value="imperial">in / lbs</option>
             </select>
           </div>
 
           <div class="field">
-            <label>Experience</label>
+            <label>Training Experience</label>
             <select name="level" required>
               <option value="beginner">Beginner</option>
               <option value="intermediate" selected>Intermediate</option>
@@ -57,51 +66,63 @@
         <div class="grid2">
           <div class="field">
             <label>Height</label>
-            <input name="height" type="number" step="any" placeholder="165" required />
+            <input type="number" name="height" placeholder="165" required />
           </div>
+
           <div class="field">
             <label>Weight</label>
-            <input name="weight" type="number" step="any" placeholder="70" required />
+            <input type="number" name="weight" placeholder="70" required />
           </div>
         </div>
 
         <div class="grid2">
           <div class="field">
             <label>Bust / Chest</label>
-            <input name="bust" type="number" step="any" placeholder="95" required />
+            <input type="number" name="bust" placeholder="95" required />
           </div>
+
           <div class="field">
             <label>Waist</label>
-            <input name="waist" type="number" step="any" placeholder="75" required />
+            <input type="number" name="waist" placeholder="75" required />
           </div>
         </div>
 
         <div class="grid2">
           <div class="field">
             <label>Hips</label>
-            <input name="hips" type="number" step="any" placeholder="105" required />
+            <input type="number" name="hips" placeholder="105" required />
           </div>
+
           <div class="field">
-            <label>Days you can train weekly</label>
+            <label>Training Days per Week</label>
             <select name="days" required>
-              <option value="2">2 days/week</option>
-              <option value="3" selected>3 days/week</option>
-              <option value="4">4 days/week</option>
-              <option value="5">5 days/week</option>
+              <option value="2">2 days / week</option>
+              <option value="3" selected>3 days / week</option>
+              <option value="4">4 days / week</option>
+              <option value="5">5 days / week</option>
             </select>
           </div>
         </div>
 
         <div class="actions">
-          <button class="btn btn-primary" type="submit">Generate Results →</button>
-          <a class="btn btn-ghost" href="index.html">Back</a>
+          <button type="submit" class="btn btn-primary">
+            Generate Results →
+          </button>
+
+          <a href="/gym-trainer-app/index.html" class="btn btn-ghost">
+            Back
+          </a>
         </div>
 
-        <p class="hint">Tip: Use the same unit system for all fields.</p>
+        <p class="hint">
+          Tip: Use the same unit system for all measurements.
+        </p>
       </form>
+
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer class="footer">
     © <span id="year"></span> Build To Last Fitness. Informational only.
   </footer>
@@ -109,5 +130,6 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
